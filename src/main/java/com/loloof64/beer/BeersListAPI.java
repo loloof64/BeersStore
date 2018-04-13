@@ -17,7 +17,22 @@ public class BeersListAPI {
      * @return Beer[]
      */
     public Beer[] getAllBeers(){
-        return getBeersForRequest("https://api.punkapi.com/v2/beers");
+        List<Beer> allPagesBeers = new ArrayList<>();
+        boolean isNotComplete = true;
+        int currentPage = 1;
+        while (isNotComplete){
+            Beer [] currentPageBeers = getBeersForRequest("https://api.punkapi.com/v2/beers?page="+currentPage);
+            allPagesBeers.addAll(List.of(currentPageBeers));
+
+            if (currentPageBeers.length == 0){
+                isNotComplete = false;
+            }
+            currentPage++;
+        }
+        Beer [] allPagesBeersArray = new Beer[allPagesBeers.size()];
+        allPagesBeers.toArray(allPagesBeersArray);
+
+        return allPagesBeersArray;
     }
 
     /**

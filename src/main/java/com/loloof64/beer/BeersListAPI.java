@@ -12,11 +12,30 @@ import java.util.List;
 
 public class BeersListAPI {
 
+    /**
+     * Gets all beers
+     * @return Beer[]
+     */
     public Beer[] getAllBeers(){
+        return getBeersForRequest("https://api.punkapi.com/v2/beers");
+    }
+
+    /**
+     * Returns all beers matching a given pattern
+     * @param namePattern - the pattern with optional spaces into the name
+     * @return Beer[]
+     */
+    public Beer[] getBeersWhoseNameMatchPattern(String namePattern){
+        String realNamePattern = namePattern.replaceAll(" ", "_");
+        String baseRequest = "https://api.punkapi.com/v2/beers?beer_name=";
+        return getBeersForRequest(baseRequest + realNamePattern);
+    }
+
+    private Beer[] getBeersForRequest(String request){
         RequestJSONFetcher jsonFetcher = new RequestJSONFetcher();
         try {
             JsonStructure jsonInstance = jsonFetcher.apiAdressToJSONStructure(
-                    "https://api.punkapi.com/v2/beers");
+                    request);
             return parseBeersListJSON(jsonInstance);
         }
         catch (MalformedURLException e){

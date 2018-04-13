@@ -8,6 +8,7 @@ import javax.json.JsonStructure;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BeersListAPI {
@@ -67,7 +68,7 @@ public class BeersListAPI {
         Beer[] allBeers = getAllBeers();
 
         List<Beer> filteredBeersList = new ArrayList<>();
-        for (Beer currentBeer : filteredBeersList){
+        for (Beer currentBeer : allBeers){
             IngredientsList ingredientsList = currentBeer.getIngredients();
 
             Ingredient[] ingredientsArray;
@@ -82,10 +83,9 @@ public class BeersListAPI {
                     throw new IllegalArgumentException("Unrecognized ingredient type "+ingredientType.getRepresentation());
             }
 
-            // Chercher un ingredient a la correspondance partielle du nom
-            // Si trouve comparer la quantité et décider en fonction
+            Ingredient [] ingredientsMatchingNamePartially = findIngredientsMatchingNamePartially(partOfIngredientName, ingredientsArray);
+            boolean isMatchingCriteria = checkIfIngredientIsMatchingCriteria(ingredientsMatchingNamePartially, quantity);
 
-            boolean isMatchingCriteria = false;
             if (isMatchingCriteria) {
                 filteredBeersList.add(currentBeer);
             }
@@ -95,6 +95,32 @@ public class BeersListAPI {
         filteredBeersList.toArray(filteredBeersArray);
 
         return filteredBeersArray;
+    }
+
+    private boolean checkIfIngredientIsMatchingCriteria(Ingredient[] ingredientsMatchingNamePartially, int quantity) {
+        boolean isMatchingCriteria;
+        double ingredientQuantity = 0.0;
+        for (Ingredient currentIngredient : ingredientsMatchingNamePartially){
+            ingredientQuantity += currentIngredient.getAmount().getValue();
+        }
+        isMatchingCriteria = ingredientsMatchingNamePartially.length > 0 && ingredientQuantity >= quantity;
+        return isMatchingCriteria;
+    }
+
+    private Ingredient[] findIngredientsMatchingNamePartially(String partOfIngredientName, Ingredient[] ingredientsArray) {
+        List<Ingredient> matchingIngredients = new ArrayList<>();
+        for (int ingredientIndex = 0; ingredientIndex < ingredientsArray.length; ingredientIndex++){
+            Ingredient currentIngredient = ingredientsArray[ingredientIndex];
+            boolean matchSoughtIngredientPartially = partOfIngredientName.contains(currentIngredient.getName());
+            if (matchSoughtIngredientPartially){
+                matchingIngredients.add(currentIngredient);
+            }
+        }
+
+        Ingredient[] resultToReturn = new Ingredient[matchingIngredients.size()];
+        matchingIngredients.toArray(resultToReturn);
+
+        return resultToReturn;
     }
 
     private Beer[] getBeersForRequest(String request){
@@ -147,7 +173,7 @@ public class BeersListAPI {
         Amount volume = parseAmount(jsonObject.getJsonObject("volume"));
         Amount boilVolume = parseAmount(jsonObject.getJsonObject("boil_volume"));
         MethodsList method = parseMethod(jsonObject);
-        IngredientsList ingredients = parseIngredients(jsonObject);
+        IngredientsList ingredients = parseIngredients(jsonObject.getJsonObject("ingredients"));
         String [] foodPairings = jsonStringArrayToPrimitiveStringArray(jsonObject.getJsonArray("food_pairing"));
         String brewersTips = jsonObject.getString("brewers_tips");
         String contributor = jsonObject.getString("contributed_by");
@@ -244,11 +270,13 @@ public class BeersListAPI {
     }
 
     private IngredientsList parseIngredients(JsonObject jsonObject) {
+
         Ingredient [] malt = parseIngredientsList(jsonObject.getJsonArray("malt"));
         Ingredient [] hops = parseIngredientsList(jsonObject.getJsonArray("hops"));
+
         String yeast;
         try {
-            yeast = jsonObject.getString("yeast");
+            yeast = jsonObject.get("yeast").toString();
         } catch (NullPointerException e){
             yeast = null;
         }
@@ -257,13 +285,18 @@ public class BeersListAPI {
     }
 
     private Ingredient[] parseIngredientsList(JsonArray jsonArray){
+        ////////////////////TOOD X
+        System.out.println(jsonArray);
+        //////////////////////
         List<Ingredient> ingredientList = new ArrayList<>();
         try {
             for (int ingredientIndex = 0; ingredientIndex < jsonArray.size(); ingredientIndex++){
                 JsonObject ingredientObject = jsonArray.getJsonObject(ingredientIndex);
                 String name = ingredientObject.getString("name");
                 Amount amount = parseAmount(ingredientObject);
-                Ingredient currentIngredient = new Ingredient(name, amount);
+                String add = ingredientObject.getString("add");
+                String attribute = ingredientObject.getString("attribute");
+                Ingredient currentIngredient = new Ingredient(name, amount, add, attribute);
                 ingredientList.add(currentIngredient);
             }
         } catch (NullPointerException e){

@@ -31,6 +31,16 @@ public class BeersListAPI {
         return getBeersForRequest(baseRequest + realNamePattern);
     }
 
+    /**
+     * Gets all beers matching the given id
+     * @param id - int
+     * @return Beer[]
+     */
+    public Beer[] getBeersMatchingId(int id){
+        String baseRequest = "https://api.punkapi.com/v2/beers?ids=";
+        return getBeersForRequest(baseRequest + Integer.valueOf(id).toString());
+    }
+
     private Beer[] getBeersForRequest(String request){
         RequestJSONFetcher jsonFetcher = new RequestJSONFetcher();
         try {

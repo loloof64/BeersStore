@@ -10,7 +10,7 @@ public class App
 {
     public static void main( String[] args )
     {
-        Beer[] allBeers = new BeersListAPI().getBeersWhoseNameMatchPattern(" Rebel");
+        Beer[] allBeers = new BeersListAPI().getBeersMatchingId(10);
         for (int beerIndex = 0; beerIndex < allBeers.length; beerIndex++){
             System.out.println(allBeers[beerIndex].getName());
         }

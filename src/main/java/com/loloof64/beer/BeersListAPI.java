@@ -2,13 +2,11 @@ package com.loloof64.beer;
 
 import com.loloof64.beer.beer_model.*;
 
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.json.JsonStructure;
+import javax.json.*;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class BeersListAPI {
@@ -146,7 +144,9 @@ public class BeersListAPI {
         JsonArray beersListAsArray = (JsonArray) beersJSONList;
         for (int beerIndex = 0; beerIndex < beersListAsArray.size(); beerIndex++) {
             Beer beer = parseBeerFromJsonObject(beersListAsArray.getJsonObject(beerIndex));
-            beersList.add(beer);
+            if (beer != null) {
+                beersList.add(beer);
+            }
         }
 
         Beer [] beersToReturn = new Beer[beersList.size()];
@@ -156,6 +156,7 @@ public class BeersListAPI {
     }
 
     private Beer parseBeerFromJsonObject(JsonObject jsonObject) {
+        if (jsonObject == null) return null;
         int id = parseIntForKey(jsonObject, "id");
         String name = parseStringForKey(jsonObject, "name");
         String tagLine = parseStringForKey(jsonObject, "tagline");
@@ -212,34 +213,20 @@ public class BeersListAPI {
     }
 
     private int parseIntForKey(JsonObject jsonObject, String key){
-        int value;
-        try {
-            String valueStr = jsonObject.get(key).toString();
-            value = Integer.parseInt(valueStr);
-        } catch (NullPointerException e){
-            value = 0;
-        } catch (NumberFormatException e){
-            value = 0;
-        }
-        return value;
+        if (jsonObject.getJsonNumber(key) == null) return 0;
+        JsonNumber jsonNumber = jsonObject.getJsonNumber(key);
+        return jsonNumber.intValue();
     }
 
     private double parseDoubleForKey(JsonObject jsonObject, String key){
-        double value;
-        try {
-            String jsonValueString = jsonObject.get(key).toString();
-            value = Double.parseDouble(jsonValueString);
-        }
-        catch (NullPointerException e){
-            value = 0.0;
-        }
-        catch (NumberFormatException e){
-            value = 0.0;
-        }
-        return value;
+        if (jsonObject.getJsonNumber(key) == null) return 0.0;
+        JsonNumber jsonNumber = jsonObject.getJsonNumber(key);
+        BigDecimal numberBigDecimal = jsonNumber.bigDecimalValue();
+        return numberBigDecimal.doubleValue();
     }
 
     private MethodsList parseMethod(JsonObject jsonObject) {
+        if (jsonObject == null) return  new MethodsList(new MethodTemp[0], new MethodTemp(new Amount(0.0, ""), 0.0), "");
         JsonArray mashTempJSONArray = jsonObject.getJsonArray("mash_temp");
         JsonObject fermentationJSONObject = jsonObject.getJsonObject("fermentation");
         String twistString;
@@ -262,7 +249,7 @@ public class BeersListAPI {
         }
         mashTempList.toArray(mashTemp);
 
-        MethodTemp fermentation = parseMethodTemperature(fermentationJSONObject);
+        MethodTemp fermentation = fermentationJSONObject != null ? parseMethodTemperature(fermentationJSONObject) : new MethodTemp(new Amount(0.0, ""), 0.0);
 
         return new MethodsList(mashTemp, fermentation, twistString);
     }

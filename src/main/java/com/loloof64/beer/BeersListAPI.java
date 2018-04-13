@@ -12,26 +12,36 @@ import java.util.List;
 
 public class BeersListAPI {
 
-    public void getAllBeers(){
+    public Beer[] getAllBeers(){
         RequestJSONFetcher jsonFetcher = new RequestJSONFetcher();
         try {
             JsonStructure jsonInstance = jsonFetcher.apiAdressToJSONStructure(
                     "https://api.punkapi.com/v2/beers");
-            parseBeersListJSON(jsonInstance);
+            return parseBeersListJSON(jsonInstance);
         }
         catch (MalformedURLException e){
             e.printStackTrace();
+            return null;
         }
         catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
     }
 
-    private void parseBeersListJSON(JsonStructure beersList){
-        JsonArray beersListAsArray = (JsonArray) beersList;
+    private Beer[] parseBeersListJSON(JsonStructure beersJSONList){
+        List<Beer> beersList = new ArrayList<>();
+
+        JsonArray beersListAsArray = (JsonArray) beersJSONList;
         for (int beerIndex = 0; beerIndex < beersListAsArray.size(); beerIndex++) {
             Beer beer = parseBeerFromJsonObject(beersListAsArray.getJsonObject(beerIndex));
+            beersList.add(beer);
         }
+
+        Beer [] beersToReturn = new Beer[beersList.size()];
+        beersList.toArray(beersToReturn);
+
+        return beersToReturn;
     }
 
     private Beer parseBeerFromJsonObject(JsonObject jsonObject) {
@@ -61,7 +71,6 @@ public class BeersListAPI {
                 id, name, tagLine, firstBrewed, description, imageUrl, abv, ibu, targetFg, targetOg, ebc, srm, ph, attenuationLevel, volume,
                 boilVolume, method, ingredients, foodPairings, brewersTips, contributor
         );
-        System.out.println(currentBeer);
 
         return currentBeer;
     }

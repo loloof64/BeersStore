@@ -41,6 +41,47 @@ public class BeersListAPI {
         return getBeersForRequest(baseRequest + Integer.valueOf(id).toString());
     }
 
+    /**
+     * Gets all beers including at least the given ingredient at least in the given quantity
+     * @param ingredientType - IngredientType - the ingredient type
+     * @param partOfIngredientName - String - part of the ingredient name
+     * @param quantity - int - minimum quantity
+     * @return Beer[] - list of beers matching criteria.
+     */
+    public Beer[] getBeersContainingIngredient(IngredientType ingredientType, String partOfIngredientName, int quantity){
+        Beer[] allBeers = getAllBeers();
+
+        List<Beer> filteredBeersList = new ArrayList<>();
+        for (Beer currentBeer : filteredBeersList){
+            IngredientsList ingredientsList = currentBeer.getIngredients();
+
+            Ingredient[] ingredientsArray;
+            switch (ingredientType){
+                case MALT:
+                    ingredientsArray = ingredientsList.getMalt();
+                    break;
+                case HOPS:
+                    ingredientsArray = ingredientsList.getHops();
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unrecognized ingredient type "+ingredientType.getRepresentation());
+            }
+
+            // Chercher un ingredient a la correspondance partielle du nom
+            // Si trouve comparer la quantité et décider en fonction
+
+            boolean isMatchingCriteria = false;
+            if (isMatchingCriteria) {
+                filteredBeersList.add(currentBeer);
+            }
+        }
+
+        Beer [] filteredBeersArray = new Beer[filteredBeersList.size()];
+        filteredBeersList.toArray(filteredBeersArray);
+
+        return filteredBeersArray;
+    }
+
     private Beer[] getBeersForRequest(String request){
         RequestJSONFetcher jsonFetcher = new RequestJSONFetcher();
         try {

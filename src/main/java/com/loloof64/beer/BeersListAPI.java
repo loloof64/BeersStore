@@ -157,11 +157,11 @@ public class BeersListAPI {
 
     private Beer parseBeerFromJsonObject(JsonObject jsonObject) {
         int id = parseIntForKey(jsonObject, "id");
-        String name = jsonObject.getString("name");
-        String tagLine = jsonObject.getString("tagline");
-        String firstBrewed = jsonObject.getString("first_brewed");
-        String description = jsonObject.getString("description");
-        String imageUrl = jsonObject.getString("image_url");
+        String name = parseStringForKey(jsonObject, "name");
+        String tagLine = parseStringForKey(jsonObject, "tagline");
+        String firstBrewed = parseStringForKey(jsonObject, "first_brewed");
+        String description = parseStringForKey(jsonObject, "description");
+        String imageUrl = parseStringForKey(jsonObject, "image_url");
         double abv = parseDoubleForKey(jsonObject, "abv");
         double ibu = parseDoubleForKey(jsonObject, "ibu");
         double targetFg = parseDoubleForKey(jsonObject, "target_fg");
@@ -175,8 +175,8 @@ public class BeersListAPI {
         MethodsList method = parseMethod(jsonObject);
         IngredientsList ingredients = parseIngredients(jsonObject.getJsonObject("ingredients"));
         String [] foodPairings = jsonStringArrayToPrimitiveStringArray(jsonObject.getJsonArray("food_pairing"));
-        String brewersTips = jsonObject.getString("brewers_tips");
-        String contributor = jsonObject.getString("contributed_by");
+        String brewersTips = parseStringForKey(jsonObject, "brewers_tips");
+        String contributor = parseStringForKey(jsonObject, "contributed_by");
 
         Beer currentBeer = new Beer(
                 id, name, tagLine, firstBrewed, description, imageUrl, abv, ibu, targetFg, targetOg, ebc, srm, ph, attenuationLevel, volume,
@@ -186,16 +186,27 @@ public class BeersListAPI {
         return currentBeer;
     }
 
+    private String parseStringForKey(JsonObject object, String key){
+        String value;
+        try {
+            value = object.getString(key);
+            return value;
+        }
+        catch (NullPointerException e){
+            return "";
+        }
+    }
+
     private Amount parseAmount(JsonObject amountObject) {
         Amount valueToReturn;
         if (amountObject != null) {
-            double value = Double.parseDouble(amountObject.get("value").toString());
-            String unit = amountObject.getString("unit");
+            double value = parseDoubleForKey(amountObject, "value");
+            String unit = parseStringForKey(amountObject, "unit");
 
             valueToReturn = new Amount(value, unit);
         }
         else {
-            valueToReturn = null;
+            valueToReturn = new Amount(0.0, "");
         }
         return valueToReturn;
     }
@@ -285,22 +296,15 @@ public class BeersListAPI {
     }
 
     private Ingredient[] parseIngredientsList(JsonArray jsonArray){
-        ////////////////////TOOD X
-        System.out.println(jsonArray);
-        //////////////////////
         List<Ingredient> ingredientList = new ArrayList<>();
-        try {
-            for (int ingredientIndex = 0; ingredientIndex < jsonArray.size(); ingredientIndex++){
-                JsonObject ingredientObject = jsonArray.getJsonObject(ingredientIndex);
-                String name = ingredientObject.getString("name");
-                Amount amount = parseAmount(ingredientObject);
-                String add = ingredientObject.getString("add");
-                String attribute = ingredientObject.getString("attribute");
-                Ingredient currentIngredient = new Ingredient(name, amount, add, attribute);
-                ingredientList.add(currentIngredient);
-            }
-        } catch (NullPointerException e){
-            // skip !!!
+        for (int ingredientIndex = 0; ingredientIndex < jsonArray.size(); ingredientIndex++){
+            JsonObject ingredientObject = jsonArray.getJsonObject(ingredientIndex);
+            String name = parseStringForKey(ingredientObject, "name");
+            Amount amount = parseAmount(ingredientObject);
+            String add = parseStringForKey(ingredientObject, "add");
+            String attribute = parseStringForKey(ingredientObject, "attribute");
+            Ingredient currentIngredient = new Ingredient(name, amount, add, attribute);
+            ingredientList.add(currentIngredient);
         }
 
         Ingredient [] ingredientsArray = new Ingredient[ingredientList.size()];

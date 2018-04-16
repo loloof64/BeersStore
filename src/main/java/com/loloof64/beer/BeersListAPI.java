@@ -15,33 +15,31 @@ public class BeersListAPI {
 
     /**
      * Gets all beers
-     * @return Beer[]
+     * @return List of Beer
      */
-    public Beer[] getAllBeers(){
+    public List<Beer> getAllBeers() {
         List<Beer> allPagesBeers = new ArrayList<>();
         boolean isNotComplete = true;
         int currentPage = 1;
-        while (isNotComplete){
-            Beer [] currentPageBeers = getBeersForRequest("https://api.punkapi.com/v2/beers?page="+currentPage);
-            allPagesBeers.addAll(List.of(currentPageBeers));
+        while (isNotComplete) {
+            List<Beer> currentPageBeers = getBeersForRequest("https://api.punkapi.com/v2/beers?page=" + currentPage);
+            allPagesBeers.addAll(currentPageBeers);
 
-            if (currentPageBeers.length == 0){
+            if (currentPageBeers.size() == 0) {
                 isNotComplete = false;
             }
             currentPage++;
         }
-        Beer [] allPagesBeersArray = new Beer[allPagesBeers.size()];
-        allPagesBeers.toArray(allPagesBeersArray);
 
-        return allPagesBeersArray;
+        return allPagesBeers;
     }
 
     /**
      * Returns all beers matching a given pattern
      * @param namePattern - the pattern with optional spaces into the name
-     * @return Beer[]
+     * @return List of Beer
      */
-    public Beer[] getBeersWhoseNameMatchPattern(String namePattern){
+    public List<Beer> getBeersWhoseNameMatchPattern(String namePattern){
         String realNamePattern = namePattern.replaceAll(" ", "_");
         String baseRequest = "https://api.punkapi.com/v2/beers?beer_name=";
         return getBeersForRequest(baseRequest + realNamePattern);
@@ -50,11 +48,12 @@ public class BeersListAPI {
     /**
      * Gets all beers matching the given id
      * @param id - int
-     * @return Beer[]
+     * @return Beer
      */
-    public Beer[] getBeersMatchingId(int id){
+    public Beer getBeersMatchingId(int id){
         String baseRequest = "https://api.punkapi.com/v2/beers?ids=";
-        return getBeersForRequest(baseRequest + Integer.valueOf(id).toString());
+        List<Beer> result = getBeersForRequest(baseRequest + Integer.valueOf(id).toString());
+        return result.size() > 0 ? result.get(0) : null;
     }
 
     /**
@@ -63,14 +62,14 @@ public class BeersListAPI {
      * @param partOfIngredientName - String - part of the ingredient name
      * @param quantity - int - min/max quantity
      * @param comparisonSide - int - positive if the quantity is the minimum, negative if the quantity is the maximum
-     * @return Beer[] - list of beers matching criteria.
+     * @return List of Beer - list of beers matching criteria.
      */
-    public Beer[] getBeersContainingIngredient(String ingredientType, String partOfIngredientName, int quantity, int comparisonSide){
-        Beer[] allBeers = getAllBeers();
+    public List<Beer> getBeersContainingIngredient(String ingredientType, String partOfIngredientName, int quantity, int comparisonSide){
+        List<Beer> allBeers = getAllBeers();
 
         List<Beer> filteredBeersList = new ArrayList<>();
         for (Beer currentBeer : allBeers){
-            Ingredient[] ingredients = currentBeer.getIngredients().getIngredientsListFor(ingredientType);
+            Ingredient[] ingredients = currentBeer.getIngredients().get(ingredientType);
 
             Ingredient [] ingredientsMatchingNamePartially = findIngredientsMatchingNamePartially(partOfIngredientName, ingredients);
             boolean isMatchingCriteria = checkIfIngredientIsMatchingCriteria(ingredientsMatchingNamePartially, quantity, comparisonSide);
@@ -80,10 +79,7 @@ public class BeersListAPI {
             }
         }
 
-        Beer [] filteredBeersArray = new Beer[filteredBeersList.size()];
-        filteredBeersList.toArray(filteredBeersArray);
-
-        return filteredBeersArray;
+        return filteredBeersList;
     }
 
     private boolean checkIfIngredientIsMatchingCriteria(Ingredient[] ingredientsMatchingNamePartially, int quantity, int comparisonSide) {
@@ -121,7 +117,7 @@ public class BeersListAPI {
         return resultToReturn;
     }
 
-    private Beer[] getBeersForRequest(String request){
+    private List<Beer> getBeersForRequest(String request){
         RequestJSONFetcher jsonFetcher = new RequestJSONFetcher();
         try {
             JsonStructure jsonInstance = jsonFetcher.apiAdressToJSONStructure(
@@ -138,7 +134,7 @@ public class BeersListAPI {
         }
     }
 
-    private Beer[] parseBeersListJSON(JsonStructure beersJSONList){
+    private List<Beer> parseBeersListJSON(JsonStructure beersJSONList){
         List<Beer> beersList = new ArrayList<>();
 
         JsonArray beersListAsArray = (JsonArray) beersJSONList;
@@ -149,10 +145,7 @@ public class BeersListAPI {
             }
         }
 
-        Beer [] beersToReturn = new Beer[beersList.size()];
-        beersList.toArray(beersToReturn);
-
-        return beersToReturn;
+        return beersList;
     }
 
     private Beer parseBeerFromJsonObject(JsonObject jsonObject) {
@@ -174,7 +167,7 @@ public class BeersListAPI {
         Amount volume = parseAmount(jsonObject.getJsonObject("volume"));
         Amount boilVolume = parseAmount(jsonObject.getJsonObject("boil_volume"));
         MethodsList method = parseMethod(jsonObject);
-        IngredientsList ingredients = parseIngredients(jsonObject.getJsonObject("ingredients"));
+        Map<String, Ingredient[]> ingredients = parseIngredients(jsonObject.getJsonObject("ingredients"));
         String [] foodPairings = jsonStringArrayToPrimitiveStringArray(jsonObject.getJsonArray("food_pairing"));
         String brewersTips = parseStringForKey(jsonObject, "brewers_tips");
         String contributor = parseStringForKey(jsonObject, "contributed_by");
@@ -270,7 +263,9 @@ public class BeersListAPI {
         return new MethodTemp(temp, duration);
     }
 
-    private IngredientsList parseIngredients(JsonObject jsonObject) {
+    private Map<String, Ingredient[]> parseIngredients(JsonObject jsonObject) {
+
+        Map<String, Ingredient[]> results = new HashMap<>();
 
         Ingredient [] malt = parseIngredientsList(jsonObject.getJsonArray("malt"));
         Ingredient [] hops = parseIngredientsList(jsonObject.getJsonArray("hops"));
@@ -282,11 +277,11 @@ public class BeersListAPI {
             yeast = null;
         }
 
-        Map<String, Ingredient[]> ingredientsList = new HashMap<>();
-        ingredientsList.put("malt", malt);
-        ingredientsList.put("hops", hops);
+        results.put("malt", malt);
+        results.put("hops", hops);
+        results.put("yeast", new Ingredient[]{new Ingredient(yeast, new Amount(1.0, "lbs"),  "", "")});
 
-        return new IngredientsList(ingredientsList, yeast);
+        return results;
     }
 
     private Ingredient[] parseIngredientsList(JsonArray jsonArray){

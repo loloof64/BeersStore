@@ -1,6 +1,7 @@
 package com.loloof64.beer.beer_model;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class Beer {
     private int id;
@@ -20,12 +21,12 @@ public class Beer {
     private Amount volume;
     private Amount boilVolume;
     private MethodsList method;
-    private IngredientsList ingredients;
+    private Map<String, Ingredient[]> ingredients;
     private String[] foodPairings;
     private String brewersTips;
     private String contributedBy;
 
-    public Beer(int id, String name, String tagLine, String firstBrewed, String description, String imageUrl, double abv, double ibu, double targetFg, double targetOg, double ebc, double srm, double ph, double attenuationLevel, Amount volume, Amount boilVolume, MethodsList method, IngredientsList ingredients, String[] foodPairings, String brewersTips, String contributedBy) {
+    public Beer(int id, String name, String tagLine, String firstBrewed, String description, String imageUrl, double abv, double ibu, double targetFg, double targetOg, double ebc, double srm, double ph, double attenuationLevel, Amount volume, Amount boilVolume, MethodsList method, Map<String, Ingredient[]> ingredients, String[] foodPairings, String brewersTips, String contributedBy) {
         this.id = id;
         this.name = name;
         this.tagLine = tagLine;
@@ -185,11 +186,11 @@ public class Beer {
         this.method = method;
     }
 
-    public IngredientsList getIngredients() {
+    public Map<String, Ingredient[]> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(IngredientsList ingredients) {
+    public void setIngredients(Map<String, Ingredient[]> ingredients) {
         this.ingredients = ingredients;
     }
 

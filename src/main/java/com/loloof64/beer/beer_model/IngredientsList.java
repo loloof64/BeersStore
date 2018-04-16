@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class IngredientsList {
-    private final Map<String, Ingredient[]> ingredientList;
-    private final String yeast;
+    private Map<String, Ingredient[]> ingredientList;
+    private String yeast;
 
     public IngredientsList(Map<String, Ingredient[]> ingredientList, String yeast) {
         this.ingredientList = ingredientList;
@@ -15,6 +15,14 @@ public class IngredientsList {
 
     public String getYeast() {
         return yeast;
+    }
+
+    public void setIngredientList(Map<String, Ingredient[]> ingredientList) {
+        this.ingredientList = ingredientList;
+    }
+
+    public void setYeast(String yeast) {
+        this.yeast = yeast;
     }
 
     public Ingredient[] getIngredientsListFor(String ingredientType){

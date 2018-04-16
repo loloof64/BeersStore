@@ -7,7 +7,9 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class BeersListAPI {
 
@@ -57,32 +59,21 @@ public class BeersListAPI {
 
     /**
      * Gets all beers including at least the given ingredient at least in the given quantity
-     * @param ingredientType - IngredientType - the ingredient type
+     * @param ingredientType - String - the ingredient type
      * @param partOfIngredientName - String - part of the ingredient name
-     * @param quantity - int - minimum quantity
+     * @param quantity - int - min/max quantity
+     * @param comparisonSide - int - positive if the quantity is the minimum, negative if the quantity is the maximum
      * @return Beer[] - list of beers matching criteria.
      */
-    public Beer[] getBeersContainingIngredient(IngredientType ingredientType, String partOfIngredientName, int quantity){
+    public Beer[] getBeersContainingIngredient(String ingredientType, String partOfIngredientName, int quantity, int comparisonSide){
         Beer[] allBeers = getAllBeers();
 
         List<Beer> filteredBeersList = new ArrayList<>();
         for (Beer currentBeer : allBeers){
-            IngredientsList ingredientsList = currentBeer.getIngredients();
+            Ingredient[] ingredients = currentBeer.getIngredients().getIngredientsListFor(ingredientType);
 
-            Ingredient[] ingredientsArray;
-            switch (ingredientType){
-                case MALT:
-                    ingredientsArray = ingredientsList.getMalt();
-                    break;
-                case HOPS:
-                    ingredientsArray = ingredientsList.getHops();
-                    break;
-                default:
-                    throw new IllegalArgumentException("Unrecognized ingredient type "+ingredientType.getRepresentation());
-            }
-
-            Ingredient [] ingredientsMatchingNamePartially = findIngredientsMatchingNamePartially(partOfIngredientName, ingredientsArray);
-            boolean isMatchingCriteria = checkIfIngredientIsMatchingCriteria(ingredientsMatchingNamePartially, quantity);
+            Ingredient [] ingredientsMatchingNamePartially = findIngredientsMatchingNamePartially(partOfIngredientName, ingredients);
+            boolean isMatchingCriteria = checkIfIngredientIsMatchingCriteria(ingredientsMatchingNamePartially, quantity, comparisonSide);
 
             if (isMatchingCriteria) {
                 filteredBeersList.add(currentBeer);
@@ -95,13 +86,22 @@ public class BeersListAPI {
         return filteredBeersArray;
     }
 
-    private boolean checkIfIngredientIsMatchingCriteria(Ingredient[] ingredientsMatchingNamePartially, int quantity) {
+    private boolean checkIfIngredientIsMatchingCriteria(Ingredient[] ingredientsMatchingNamePartially, int quantity, int comparisonSide) {
         boolean isMatchingCriteria;
         double ingredientQuantity = 0.0;
         for (Ingredient currentIngredient : ingredientsMatchingNamePartially){
             ingredientQuantity += currentIngredient.getAmount().getValue();
         }
-        isMatchingCriteria = ingredientsMatchingNamePartially.length > 0 && ingredientQuantity >= quantity;
+        boolean weHaveSomeIngredients = ingredientsMatchingNamePartially.length > 0;
+        if (comparisonSide > 0) {
+            isMatchingCriteria = weHaveSomeIngredients && ingredientQuantity > quantity;
+        }
+        else if (comparisonSide < 0){
+            isMatchingCriteria = weHaveSomeIngredients && ingredientQuantity < quantity;
+        }
+        else {
+            isMatchingCriteria = weHaveSomeIngredients && ingredientQuantity == quantity;
+        }
         return isMatchingCriteria;
     }
 
@@ -282,7 +282,11 @@ public class BeersListAPI {
             yeast = null;
         }
 
-        return new IngredientsList(malt, hops, yeast);
+        Map<String, Ingredient[]> ingredientsList = new HashMap<>();
+        ingredientsList.put("malt", malt);
+        ingredientsList.put("hops", hops);
+
+        return new IngredientsList(ingredientsList, yeast);
     }
 
     private Ingredient[] parseIngredientsList(JsonArray jsonArray){

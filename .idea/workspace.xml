@@ -3,7 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="8f649dca-e83d-4e8a-ae9d-04f20ecc7b0a" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loloof64/beer/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loloof64/beer/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/loloof64/beer/BeersListAPI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loloof64/beer/BeersListAPI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/IngredientType.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/IngredientsList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/IngredientsList.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -27,8 +30,15 @@
       <file leaf-file-name="IngredientsList.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/IngredientsList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="245">
-              <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+            <state relative-caret-position="555">
+              <caret line="37" column="40" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#381#382#0" expanded="true" />
+                <element signature="e#409#410#0" expanded="true" />
+                <element signature="e#484#485#0" expanded="true" />
+                <element signature="e#520#521#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -73,23 +83,25 @@
       <file leaf-file-name="Beer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/Beer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-39">
-              <caret line="220" column="18" selection-start-line="220" selection-start-column="18" selection-end-line="220" selection-end-column="18" />
+            <state relative-caret-position="106">
+              <caret line="182" lean-forward="true" selection-start-line="182" selection-end-line="182" />
               <folding>
                 <element signature="e#1858#1859#0" expanded="true" />
                 <element signature="e#1886#1887#0" expanded="true" />
                 <element signature="e#3556#3557#0" expanded="true" />
                 <element signature="e#3584#3585#0" expanded="true" />
+                <element signature="e#4293#4294#0" expanded="true" />
+                <element signature="e#4327#4328#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="App.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="App.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/App.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="33" column="91" selection-start-line="33" selection-start-column="91" selection-end-line="33" selection-end-column="91" />
+            <state relative-caret-position="420">
+              <caret line="28" column="100" selection-start-line="28" selection-start-column="100" selection-end-line="28" selection-end-column="100" />
               <folding>
                 <element signature="e#283#284#0" expanded="true" />
                 <element signature="e#328#329#0" expanded="true" />
@@ -98,11 +110,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BeersListAPI.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="BeersListAPI.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/BeersListAPI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="226" column="50" selection-start-line="226" selection-start-column="50" selection-end-line="226" selection-end-column="50" />
+            <state relative-caret-position="534">
+              <caret line="288" column="52" selection-start-line="288" selection-start-column="52" selection-end-line="288" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -143,17 +155,17 @@
         <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/Method.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/MethodMashTemp.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/Beer.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/IngredientsList.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/Amount.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/MethodsList.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/MethodTemp.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/IngredientType.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/App.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/RequestJSONFetcher.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/Ingredient.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/IngredientsList.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/IngredientType.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/BeersListAPI.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/loloof64/beer/App.java" />
       </list>
     </option>
   </component>
@@ -352,7 +364,7 @@
       <workItem from="1523543825289" duration="4849000" />
       <workItem from="1523549661219" duration="199000" />
       <workItem from="1523600990895" duration="26218000" />
-      <workItem from="1523860325296" duration="4212000" />
+      <workItem from="1523860325296" duration="5931000" />
     </task>
     <task id="LOCAL-00001" summary="Finished the &quot;all beers&quot; api.">
       <created>1523611795392</created>
@@ -410,11 +422,18 @@
       <option name="project" value="LOCAL" />
       <updated>1523628371124</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Fix the parseDouble method.">
+      <created>1523864611620</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1523864611620</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35478000" />
+    <option name="totallyTimeSpent" value="37197000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -432,7 +451,7 @@
     <layout>
       <window_info anchor="right" id="Palette" order="2" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32971507" />
-      <window_info anchor="bottom" id="Messages" order="7" weight="0.32902297" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.3283582" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
       <window_info anchor="right" id="Capture Analysis" order="4" />
@@ -444,7 +463,7 @@
       <window_info anchor="bottom" id="Terminal" order="10" weight="0.3283582" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22393823" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.22393823" />
       <window_info anchor="right" id="Database" order="7" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="5" weight="0.24967825" />
@@ -459,6 +478,36 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
     </layout>
+    <layout-to-restore>
+      <window_info anchor="right" id="Palette" order="2" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="1" weight="0.25" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4993565" visible="true" weight="0.31071913" />
+      <window_info anchor="right" id="Ant Build" order="5" weight="0.24967825" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22393823" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="right" id="Theme Preview" order="8" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32971507" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="UI Designer" order="4" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39891452" />
+      <window_info anchor="right" id="Database" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3283582" />
+      <window_info anchor="right" id="Event Log" order="9" sideWeight="0.5006435" side_tool="true" weight="0.3101673" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="bottom" id="Messages" order="7" weight="0.32902297" />
+      <window_info anchor="right" id="Maven Projects" order="6" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -475,7 +524,8 @@
     <MESSAGE value="Adding missing fields to Ingredient model." />
     <MESSAGE value="Fixing several bugs in the main parsing algorithm." />
     <MESSAGE value="Bux fixes again." />
-    <option name="LAST_COMMIT_MESSAGE" value="Bux fixes again." />
+    <MESSAGE value="Fix the parseDouble method." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix the parseDouble method." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -600,6 +650,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="600">
           <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#381#382#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#484#485#0" expanded="true" />
+            <element signature="e#520#521#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -643,6 +700,8 @@
             <element signature="e#1886#1887#0" expanded="true" />
             <element signature="e#3556#3557#0" expanded="true" />
             <element signature="e#3584#3585#0" expanded="true" />
+            <element signature="e#4293#4294#0" expanded="true" />
+            <element signature="e#4327#4328#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -726,6 +785,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#381#382#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#484#485#0" expanded="true" />
+            <element signature="e#520#521#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -823,6 +889,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" column="35" selection-start-line="13" selection-start-column="35" selection-end-line="13" selection-end-column="35" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#381#382#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#484#485#0" expanded="true" />
+            <element signature="e#520#521#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -890,41 +963,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/App.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="33" column="91" selection-start-line="33" selection-start-column="91" selection-end-line="33" selection-end-column="91" />
-          <folding>
-            <element signature="e#283#284#0" expanded="true" />
-            <element signature="e#328#329#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/glassfish/javax.json/1.1.2/javax.json-1.1.2.jar!/org/glassfish/json/JsonObjectBuilderImpl.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="94" selection-start-line="94" selection-end-line="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/IngredientType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/Beer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-39">
-          <caret line="220" column="18" selection-start-line="220" selection-start-column="18" selection-end-line="220" selection-end-column="18" />
-          <folding>
-            <element signature="e#1858#1859#0" expanded="true" />
-            <element signature="e#1886#1887#0" expanded="true" />
-            <element signature="e#3556#3557#0" expanded="true" />
-            <element signature="e#3584#3585#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -954,17 +996,57 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/IngredientsList.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="245">
-          <caret line="40" column="18" selection-start-line="40" selection-start-column="18" selection-end-line="40" selection-end-column="18" />
+        <state relative-caret-position="555">
+          <caret line="37" column="40" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#381#382#0" expanded="true" />
+            <element signature="e#409#410#0" expanded="true" />
+            <element signature="e#484#485#0" expanded="true" />
+            <element signature="e#520#521#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/IngredientType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="4" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/beer_model/Beer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="106">
+          <caret line="182" lean-forward="true" selection-start-line="182" selection-end-line="182" />
+          <folding>
+            <element signature="e#1858#1859#0" expanded="true" />
+            <element signature="e#1886#1887#0" expanded="true" />
+            <element signature="e#3556#3557#0" expanded="true" />
+            <element signature="e#3584#3585#0" expanded="true" />
+            <element signature="e#4293#4294#0" expanded="true" />
+            <element signature="e#4327#4328#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/BeersListAPI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="226" column="50" selection-start-line="226" selection-start-column="50" selection-end-line="226" selection-end-column="50" />
+        <state relative-caret-position="534">
+          <caret line="288" column="52" selection-start-line="288" selection-start-column="52" selection-end-line="288" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/loloof64/beer/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="28" column="100" selection-start-line="28" selection-start-column="100" selection-end-line="28" selection-end-column="100" />
+          <folding>
+            <element signature="e#283#284#0" expanded="true" />
+            <element signature="e#328#329#0" expanded="true" />
           </folding>
         </state>
       </provider>

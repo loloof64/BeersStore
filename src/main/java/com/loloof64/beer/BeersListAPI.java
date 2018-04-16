@@ -213,16 +213,19 @@ public class BeersListAPI {
     }
 
     private int parseIntForKey(JsonObject jsonObject, String key){
-        if (jsonObject.getJsonNumber(key) == null) return 0;
         JsonNumber jsonNumber = jsonObject.getJsonNumber(key);
         return jsonNumber.intValue();
     }
 
-    private double parseDoubleForKey(JsonObject jsonObject, String key){
-        if (jsonObject.getJsonNumber(key) == null) return 0.0;
-        JsonNumber jsonNumber = jsonObject.getJsonNumber(key);
-        BigDecimal numberBigDecimal = jsonNumber.bigDecimalValue();
-        return numberBigDecimal.doubleValue();
+    private double parseDoubleForKey(JsonObject jsonObject, String key) {
+        try {
+            if (jsonObject.get(key).equals(JsonValue.NULL)) throw new NullPointerException();
+            JsonNumber jsonNumber = jsonObject.getJsonNumber(key);
+            BigDecimal numberBigDecimal = jsonNumber.bigDecimalValue();
+            return numberBigDecimal.doubleValue();
+        } catch(NullPointerException e){
+            return 0.0;
+        }
     }
 
     private MethodsList parseMethod(JsonObject jsonObject) {
@@ -287,7 +290,7 @@ public class BeersListAPI {
         for (int ingredientIndex = 0; ingredientIndex < jsonArray.size(); ingredientIndex++){
             JsonObject ingredientObject = jsonArray.getJsonObject(ingredientIndex);
             String name = parseStringForKey(ingredientObject, "name");
-            Amount amount = parseAmount(ingredientObject);
+            Amount amount = parseAmount(ingredientObject.getJsonObject("amount"));
             String add = parseStringForKey(ingredientObject, "add");
             String attribute = parseStringForKey(ingredientObject, "attribute");
             Ingredient currentIngredient = new Ingredient(name, amount, add, attribute);
